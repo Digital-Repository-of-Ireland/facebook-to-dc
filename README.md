@@ -6,6 +6,8 @@ It can be used mostly as is, but depending on your metadata needs you might want
 
 It is very unlikely that this will produce perfect metadata and some curation and review will almost certainly be required.
 
+This script is not a replacement for a qualified cataloguer!
+
 # Installation
 Just clone the repository
 
