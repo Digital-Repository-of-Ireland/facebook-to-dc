@@ -17,7 +17,7 @@ Modify the conf/settings.yml (or create conf/settings.local.yml) file to include
 Filenames will use the post date. Metadata will have the extension .xml while the text assets will have the extension .txt
 
 # Running
-$ ruby fb2dc.rb \<input file> <output dir>
+$ ruby fb2dc.rb \<input file> \<output dir>
 
 Input file is the index.html from the Facebook timeline export.
 
