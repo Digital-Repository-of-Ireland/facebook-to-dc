@@ -9,7 +9,9 @@ It is very unlikely that this will produce perfect metadata and some curation an
 This script is not a replacement for a qualified cataloguer!
 
 # Installation
-Just clone the repository
+Clone the repository from Github. Open a terminal or command line prompt and navigate to the directory where you cloned the repository. To install the required Ruby Gems run
+
+$ bundle install
 
 # Configuration
 Modify the conf/settings.yml (or create conf/settings.local.yml) file to include the generic dc values that you want included in every object. In addition to these generic fields, the html export file of the Facebook timeline will be parsed. The body of each comment will become a text asset in the output data directory. The first line of the body will become a dc:title, and the post date will become a dc:date field. The metadata xml file will be saved to the output metadata directory.
