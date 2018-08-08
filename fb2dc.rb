@@ -29,7 +29,7 @@ data = File.read(infile)
 doc = Nokogiri::HTML(data)
 
 # read the default dc fields from the config file
-settings_file = File.file?('conf/settings.local.yml')? "conf/settings.local.yml" "conf/settings.yml"
+settings_file = File.file?('conf/settings.local.yml')? "conf/settings.local.yml" : "conf/settings.yml"
 Settings = YAML.load_file(settings_file)
 
 doc.css('div[class=comment]').each do |div|
@@ -70,7 +70,7 @@ doc.css('div[class=comment]').each do |div|
 
                             # these fields will come from the FB timeline export
                             xml['dc'].title title
-                            xml['dc'].date date
+                            xml['dcterms'].issued date
 
                             # the rest of the DC fields will be the same for all objects and come from the settings file
                             # This is not a loop as for some fields we might have special requirements
