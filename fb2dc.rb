@@ -37,7 +37,10 @@ doc.css('div[class=comment]').each do |div|
     date = div.previous_element.text
 
     # The post datestamps will probably be unique, we will use them as the object file basename
-    basename = date.gsub!(/\s/, '')
+    basename = date.gsub(/\s/, '')
+
+    # Now format the date in a nicer way
+    w3c_date = Date.parse(date).strftime('%Y-%m-%d')
 
     # The asset text is the comment body
     body = div.text
@@ -49,10 +52,10 @@ doc.css('div[class=comment]').each do |div|
     title = tmp[0]
     title.gsub!(/^\"/, '')
     title.gsub!(/^''/, '')
-    title.gsub!(/^”/, '')
-    title.gsub!(/^“/, '')
+    title.gsub!(/”/, '')
+    title.gsub!(/“/, '')
     title.gsub!(/^\s/, '')
-
+    title.gsub!(/‘/, '')
 
     # Output to asset file
     File.open("#{outdir}/data/#{basename}.txt", "w") do |f|     
@@ -70,7 +73,7 @@ doc.css('div[class=comment]').each do |div|
 
                             # these fields will come from the FB timeline export
                             xml['dc'].title title
-                            xml['dcterms'].issued date
+                            xml['dcterms'].issued w3c_date
 
                             # the rest of the DC fields will be the same for all objects and come from the settings file
                             # This is not a loop as for some fields we might have special requirements
@@ -100,7 +103,7 @@ doc.css('div[class=comment]').each do |div|
                             # DATE
                             if Settings['fields'].has_key?('date')
                                 Settings['fields']['date'].each do |date|
-                                    xml['dc'].date date
+                                    xml['dc'].date date 
                                 end
                             end
 
@@ -181,7 +184,18 @@ doc.css('div[class=comment]').each do |div|
                                 end
                             end
 
-                            #xml['dc'].description "#{static_description} #{date}"
+                            if Settings['fields'].has_key?('temporal')
+                                Settings['fields']['temporal'].each do |temporal|
+                                    xml['dcterms'].temporal temporal
+                                end
+                            end
+
+                            if Settings['fields'].has_key?('spatial')
+                                Settings['fields']['spatial'].each do |spatial|
+                                    xml['dcterms'].spatial spatial
+                                end
+                            end
+
       }
     end
 
@@ -190,5 +204,4 @@ doc.css('div[class=comment]').each do |div|
         f.write(builder.to_xml)                  
     end
 end
-
 
