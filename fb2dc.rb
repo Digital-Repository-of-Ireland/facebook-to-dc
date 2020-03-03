@@ -1,5 +1,6 @@
 require 'nokogiri'
 require 'yaml'
+require 'date'
 
 # get args
 if (ARGV.empty? || ARGV.size < 2)
